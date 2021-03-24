@@ -1,18 +1,18 @@
 defmodule ListFilteringChallenge do
-  @moduledoc """
-  Documentation for `ListFilteringChallenge`.
-  """
 
-  @doc """
-  Hello world.
+  def call(list), do: list_filter(list)
 
-  ## Examples
+  defp list_filter(list) do
+    list
+    |> Enum.flat_map(&get_numbers/1)
+    |> Enum.filter(&(rem(&1, 2) == 1))
+    |> length()
+  end
 
-      iex> ListFilteringChallenge.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  defp get_numbers(value) do
+    case Integer.parse(value) do
+      {value, _rest} -> [value]
+      :error -> []
+    end
   end
 end
